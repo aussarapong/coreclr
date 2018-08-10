@@ -1835,7 +1835,6 @@ def static addTriggers(def job, def branch, def isPR, def architecture, def os, 
                     }
                     switch (scenario) {
                         case 'innerloop':
-                        case 'corefx_innerloop':
                             isDefaultTrigger = true
                             break
 
@@ -1890,8 +1889,14 @@ def static addTriggers(def job, def branch, def isPR, def architecture, def os, 
                     switch (scenario) {
                         case 'innerloop':
                         case 'no_tiered_compilation_innerloop':
-                        case 'corefx_innerloop':
                             isDefaultTrigger = true
+                            break
+
+                        case 'corefx_innerloop':
+                            if (configuration == 'Checked' || configuration == 'Release') {
+                                isDefaultTrigger = true
+                            }
+                            break
 
                         default:
                             break
